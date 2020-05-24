@@ -1,7 +1,5 @@
-# Home Assistant Community Add-on: Node-RED
+# Home Assistant Add-on: Node-RED-Minimal
 
-[![GitHub Release][releases-shield]][releases]
-![Project Stage][project-stage-shield]
 [![License][license-shield]](LICENSE.md)
 
 ![Supports aarch64 Architecture][aarch64-shield]
@@ -9,17 +7,6 @@
 ![Supports armhf Architecture][armhf-shield]
 ![Supports armv7 Architecture][armv7-shield]
 ![Supports i386 Architecture][i386-shield]
-
-[![GitLab CI][gitlabci-shield]][gitlabci]
-![Project Maintenance][maintenance-shield]
-[![GitHub Activity][commits-shield]][commits]
-
-[![Discord][discord-shield]][discord]
-[![Community Forum][forum-shield]][forum]
-
-[![Sponsor Frenck via GitHub Sponsors][github-sponsors-shield]][github-sponsors]
-
-[![Support Frenck on Patreon][patreon-shield]][patreon]
 
 Flow-based programming for the Internet of Things.
 
@@ -34,17 +21,30 @@ It provides a browser-based editor that makes it easy to wire together flows
 using the wide range of nodes in the palette that can be deployed to its
 runtime in a single click.
 
+## This is not the official community addon
+This add-on is actually a **minimized version** of the [official community addon](https://addons.community/#node-red).
+It can only be managed through ingress, does not support serial devices and
+is unable to expose HTTP nodes on your network.
+
+If you require such functionality, please use the above mentioned official addon.
+
 ## Installation
 
 The installation of this add-on is pretty straightforward and not different in
 comparison to installing any other Home Assistant add-on.
 
-1. Search for the "Node-RED" add-on in the Home Assistant add-on store and
+**Warning**: By default this addon uses the same configuration location as the
+official community Node-Red addon. You can use this addon as a replacement,
+but should not run both simultaneously without configuring separate configuration
+paths.
+
+1. Add this repository to your Supervisor Add-On store.
+1. Search for the "Node-RED-Minimal" add-on in the Home Assistant add-on store and
    install it.
 1. Set a `credential_secret`, which is used to encrypt sensitive data.
    This is just a "password", which you should save in a secondary location.
-1. Start the "Node-RED" add-on.
-1. Check the logs of "Node-RED" to see if everything went well.
+1. Start the "Node-RED-Minimal" add-on.
+1. Check the logs of "Node-RED-Minimal" to see if everything went well.
 1. Click on the "OPEN WEB UI" button to jump into Node-RED.
 1. The add-on works straight out the box! No need to configure a server!
 
@@ -62,16 +62,6 @@ Example add-on configuration:
 ```yaml
 log_level: info
 credential_secret: KJHhfdhiFRENCKfsdfdsDHFHDJS
-http_node:
-  username: MarryPoppins
-  password: Supercalifragilisticexpialidocious
-http_static:
-  username: MarryPoppins
-  password: Supercalifragilisticexpialidocious
-ssl: true
-certfile: fullchain.pem
-keyfile: privkey.pem
-require_ssl: true
 system_packages:
   - ffmpeg
 npm_packages:
@@ -101,31 +91,6 @@ more severe level, e.g., `debug` also shows `info` messages. By default,
 the `log_level` is set to `info`, which is the recommended setting unless
 you are troubleshooting.
 
-### Option: `ssl`
-
-Enables/Disables SSL (HTTPS) on the web interface.
-Set it `true` to enable it, `false` otherwise.
-
-**Note**: _The SSL settings only apply to direct access and has no effect
-on the Ingress service._
-
-### Option: `certfile`
-
-The certificate file to use for SSL.
-
-**Note**: _The file MUST be stored in `/ssl/`, which is the default_
-
-### Option: `keyfile`
-
-The private key file to use for SSL.
-
-**Note**: _The file MUST be stored in `/ssl/`, which is the default_
-
-### Option: `require_ssl`
-
-This option can be used to cause insecure HTTP connections to be redirected
-to HTTPS. This is recommended when you have SSL enabled.
-
 ### Option: `credential_secret`
 
 Credentials are encrypted by Node-RED in storage, using a secret key.
@@ -146,31 +111,6 @@ will be enabled. For more information and a glance at how it looks,
 see the GitHub repository of this theme:
 
 <https://github.com/node-red-contrib-themes/midnight-red>
-
-### Option: `http_node`
-
-To password protect the node-defined HTTP endpoints (`httpNodeRoot`),
-the following properties can be used:
-
-- `username`
-- `password`
-
-**Note**: _These options support secrets, e.g., `!secret red_password`._
-
-**Note**: _In order to use the `http_node` you will need to expose Node-RED using
-a network port in addition to ingress. The HTTP nodes will also be presented
-under `/endpoint/` as shown in the UI. If using the `node-red-dashboard` module
-this will also be hosted under this path and will use any credentials set here._
-
-### Option: `http_static`
-
-To password protect the static content (httpStatic), the following
-properties can be used:
-
-- `username`
-- `password`
-
-**Note**: _These options support secrets, e.g., `!secret red_password`._
 
 ### Option: `system_packages`
 
@@ -195,23 +135,6 @@ Customize your Node-RED environment even more with the `init_commands` option.
 Add one or more shell commands to the list, and they will be executed every
 single time this add-on starts.
 
-### Option: `i_like_to_be_pwned`
-
-Adding this option to the add-on configuration allows to you bypass the
-HaveIBeenPwned password requirement by setting it to `true`.
-
-**Note**: _We STRONGLY suggest picking a stronger/safer password instead of
-using this option! USE AT YOUR OWN RISK!_
-
-### Option: `leave_front_door_open`
-
-Adding this option to the add-on configuration allows you to disable
-authentication on the add-on by setting it to `true` and leaving the
-username and password empty.
-
-**Note**: _We STRONGLY suggest, not to use this, even if this add-on is
-only exposed to your internal network. USE AT YOUR OWN RISK!_
-
 ## Configuration folder
 
 The addon will store most of its configuration in the `config/node-red` folder,
@@ -235,17 +158,12 @@ Save the file and restart the Node-RED add-on.
 
 ## Known issues and limitations
 
-- While this add-on ships with Node-RED Dashboard, it currently does not
-  support accessing the dashboard via Ingress. This is a technical limitation
-  on the Node-RED Dashboard end.
+- Since this minimzed add-on only supports ingress, and Node-Red Dashboard
+  currently does not support accessing the dashboard via Ingress, you cannot
+  install and use Node-RED Dashboard.
 
-- If you cannot access HTTP nodes or Node-RED Dashboard, please check
-  if you have enabled direct access mode by setting a port number in
-  "Network" configuration section of the add-on.
-
-- If you cannot access HTTP nodes or Node-RED Dashboard, please check
-  if you URL starts with `/endpoint/`, or else Home Assistant authentication
-  will kick in.
+- HTTP nodes and static HTTP content cannot be made available on your network.
+  Please use the official Node Red addon if you wish to do so.
 
 - If the following error is seen after an update `WARNING (MainThread)
   [hassio.api.proxy] Unauthorized WebSocket access!` please validate the
@@ -254,28 +172,12 @@ Save the file and restart the Node-RED add-on.
   by the server name. The checkbox that states `I use the Home Assistant Add-On`
   should be checked.
 
-## Changelog & Releases
-
-This repository keeps a change log using [GitHub's releases][releases]
-functionality. The format of the log is based on
-[Keep a Changelog][keepchangelog].
-
-Releases are based on [Semantic Versioning][semver], and use the format
-of ``MAJOR.MINOR.PATCH``. In a nutshell, the version will be incremented
-based on the following:
-
-- ``MAJOR``: Incompatible or major changes.
-- ``MINOR``: Backwards-compatible new features and enhancements.
-- ``PATCH``: Backwards-compatible bugfixes and package updates.
-
 ## Support
 
 Got questions?
 
 You have several options to get them answered:
 
-- The [Home Assistant Community Add-ons Discord chat server][discord] for add-on
-  support and feature requests.
 - The [Home Assistant Discord chat server][discord-ha] for general Home
   Assistant discussions and questions.
 - The Home Assistant [Community Forum][forum].
@@ -285,33 +187,24 @@ You could also [open an issue here][issue] GitHub.
 
 ## Contributing
 
-This is an active open-source project. We are always open to people who want to
-use the code or contribute to it.
+Feel free to suggest improvements or fork to your liking.
 
-We have set up a separate document containing our
-[contribution guidelines](CONTRIBUTING.md).
-
-Thank you for being involved! :heart_eyes:
+I would also suggest you to read the official [contribution guidelines](CONTRIBUTING.md).
 
 ## Authors & contributors
 
-The original setup of this repository is by [Franck Nijhof][frenck].
+The original work was done by [Franck Nijhof][frenck].
 
 For a full list of all authors and contributors,
 check [the contributor's page][contributors].
-
-## We have got some Home Assistant add-ons for you
-
-Want some more functionality to your Home Assistant instance?
-
-We have created multiple add-ons for Home Assistant. For a full list, check out
-our [GitHub Repository][repository].
 
 ## License
 
 MIT License
 
 Copyright (c) 2018-2020 Franck Nijhof
+
+Copyright (c) 2020 IceEyz
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -337,32 +230,18 @@ SOFTWARE.
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [bonanitech]: https://github.com/bonanitech
-[commits-shield]: https://img.shields.io/github/commit-activity/y/hassio-addons/addon-node-red.svg
-[commits]: https://github.com/hassio-addons/addon-node-red/commits/master
-[contributors]: https://github.com/hassio-addons/addon-node-red/graphs/contributors
+[commits]: https://github.com/IceEyz/addon-node-red/commits/master
+[contributors]: https://github.com/IceEyz/addon-node-red/graphs/contributors
 [discord-ha]: https://discord.gg/c5DvZ4e
 [discord-shield]: https://img.shields.io/discord/478094546522079232.svg
 [discord]: https://discord.me/hassioaddons
 [forum-shield]: https://img.shields.io/badge/community-forum-brightgreen.svg
-[forum]: https://community.home-assistant.io/t/home-assistant-community-add-on-node-red/55023?u=frenck
+[forum]: https://community.home-assistant.io/
 [frenck]: https://github.com/frenck
-[github-sponsors-shield]: https://frenck.dev/wp-content/uploads/2019/12/github_sponsor.png
-[github-sponsors]: https://github.com/sponsors/frenck
-[gitlabci-shield]: https://gitlab.com/hassio-addons/addon-node-red/badges/master/pipeline.svg
-[gitlabci]: https://gitlab.com/hassio-addons/addon-node-red/pipelines
 [home-assistant]: https://home-assistant.io
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
-[issue]: https://github.com/hassio-addons/addon-node-red/issues
-[keepchangelog]: http://keepachangelog.com/en/1.0.0/
+[issue]: https://github.com/IceEyz/addon-node-red-minimal/issues
 [license-shield]: https://img.shields.io/github/license/hassio-addons/addon-node-red.svg
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2020.svg
 [node-red-nodes]: https://flows.nodered.org/?type=node&num_pages=1
 [npm-packages]: https://www.npmjs.com
-[patreon-shield]: https://frenck.dev/wp-content/uploads/2019/12/patreon.png
-[patreon]: https://www.patreon.com/frenck
-[project-stage-shield]: https://img.shields.io/badge/project%20stage-production%20ready-brightgreen.svg
 [reddit]: https://reddit.com/r/homeassistant
-[releases-shield]: https://img.shields.io/github/release/hassio-addons/addon-node-red.svg
-[releases]: https://github.com/hassio-addons/addon-node-red/releases
-[repository]: https://github.com/hassio-addons/repository
-[semver]: http://semver.org/spec/v2.0.0.htm

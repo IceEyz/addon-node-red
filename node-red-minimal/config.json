@@ -1,0 +1,31 @@
+{
+  "name": "Node-RED Minimal",
+  "version": "dev",
+  "slug": "noderedminimal",
+  "description": "Flow-based programming for the Internet of Things",
+  "url": "https://github.com/IceEyz/addon-node-red-minimal",
+  "ingress": true,
+  "panel_icon": "mdi:sitemap",
+  "startup": "application",
+  "init": false,
+  "homeassistant": "0.92.0b2",
+  "arch": ["aarch64", "amd64", "armhf", "armv7", "i386"],
+  "boot": "auto",
+  "homeassistant_api": true,
+  "map": ["config:rw", "share:rw"],
+  "options": {
+    "credential_secret": "",
+    "dark_mode": false,
+    "system_packages": [],
+    "npm_packages": [],
+    "init_commands": []
+  },
+  "schema": {
+    "log_level": "list(trace|debug|info|notice|warning|error|fatal)?",
+    "credential_secret": "password",
+    "dark_mode": "bool",
+    "system_packages": ["str"],
+    "npm_packages": ["str"],
+    "init_commands": ["str"]
+  }
+}

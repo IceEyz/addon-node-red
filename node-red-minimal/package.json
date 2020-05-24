@@ -1,0 +1,24 @@
+{
+  "private": true,
+  "name": "addon-node-red-minimal",
+  "description": "A visual tool for wiring the Internet of Things",
+  "homepage": "https://github.com/IceEyz/addon-node-red-minimal",
+  "repository": "https://github.com/IceEyz/addon-node-red-minimal",
+  "license": "MIT",
+  "main": "node_modules/node-red/red/red.js",
+  "scripts": {
+    "start": "node $NODE_OPTIONS node_modules/node-red/red.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
+  },
+  "dependencies": {
+    "node-red": "1.x",
+    "node-red-contrib-home-assistant-websocket": ">=0.22.3",
+    "snyk": "1.x",
+    "@node-red-contrib-themes/midnight-red": "1.x"
+  },
+  "engines": {
+    "node": ">=10"
+  },
+  "snyk": true
+}

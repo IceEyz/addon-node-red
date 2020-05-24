@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 # ==============================================================================
-# Home Assistant Community Add-on: Node-RED
+# Home Assistant Community Add-on: Node-RED-Minimal
 # Executes user customizations on startup
 # ==============================================================================
 

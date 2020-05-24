@@ -11,9 +11,7 @@ supportComment: >
   However, this issue appears to be a support request. Please use our
   support channels to get help with the project.
 
-  Head over to the
-  [Home Assistant community forum](https://community.home-assistant.io/t/home-assistant-community-add-on-node-red/55023?u=frenck)
-  or join our [Discord](https://discord.me/hassioaddons) chat.
+  Head over to the [Home Assistant community forum](https://community.home-assistant.io/).
 
 # Close issues marked as support requests
 close: true
