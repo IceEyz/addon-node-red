@@ -33,6 +33,9 @@ If you require such functionality, please use the above mentioned official addon
 The installation of this add-on is pretty straightforward and not different in
 comparison to installing any other Home Assistant add-on.
 
+**Warning**: The docker image isn't prebuild (yet), which means you currently need
+decent hardware and/or patience to have your local Home Assistant build the image.
+
 **Warning**: By default this addon uses the same configuration location as the
 official community Node-Red addon. You can use this addon as a replacement,
 but should not run both simultaneously without configuring separate configuration
@@ -164,6 +167,9 @@ Save the file and restart the Node-RED add-on.
 
 - HTTP nodes and static HTTP content cannot be made available on your network.
   Please use the official Node Red addon if you wish to do so.
+
+- The docker image isn't prebuild (yet), which means you currently need
+  decent hardware and/or patience to have your local Home Assistant build the image.
 
 - If the following error is seen after an update `WARNING (MainThread)
   [hassio.api.proxy] Unauthorized WebSocket access!` please validate the
