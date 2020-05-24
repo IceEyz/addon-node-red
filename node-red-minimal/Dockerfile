@@ -19,18 +19,18 @@ RUN apk add --no-cache --virtual .build-dependencies \
         gcc \
         g++ \
         linux-headers \
-        udev
-RUN apk add --update --no-cache "nodejs<13" "npm<13"
-RUN npm config set unsafe-perm true
-RUN npm install \
+        udev \
+&& apk add --update --no-cache "nodejs<13" "npm<13" \
+&& npm config set unsafe-perm true \
+&& npm install \
         --no-audit \
         --no-optional \
         --no-update-notifier \
         --only=production \
-        --unsafe-perm
-RUN npm cache clear --force
-RUN apk del --no-cache --purge .build-dependencies
-RUN rm -fr /tmp/*
+        --unsafe-perm \
+&& npm cache clear --force \
+&& apk del --no-cache --purge .build-dependencies \
+&& rm -fr /tmp/*
 
 # Copy root filesystem
 COPY rootfs /
