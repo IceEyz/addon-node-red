@@ -1,6 +1,6 @@
 {
   "name": "Node-RED Minimal",
-  "version": "dev",
+  "version": "1.0.1",
   "slug": "noderedminimal",
   "description": "Flow-based programming for the Internet of Things",
   "url": "https://github.com/IceEyz/addon-node-red-minimal",
@@ -27,5 +27,6 @@
     "system_packages": ["str"],
     "npm_packages": ["str"],
     "init_commands": ["str"]
-  }
+  },
+  "image": "iceeyz/addon-node-red-minimal"
 }
